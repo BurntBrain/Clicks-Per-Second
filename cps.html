@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clicks per second</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <br>
+    <center><h1 id="displayCPS">CPS: 0</h1></center>
+    <center><button id="button" style="background-color:#c91c1c;">Click Here</button></center>
+    <center><h1 id="peakCPS">Peak clicks per  second: </h1></center>
+    
+    
+
+
+    <script>      
+        prevPress = new Date().getTime();
+        let currentPress = 0;
+        let cps = 0;
+        let peak = 0;
+
+        button.addEventListener("click", function() {
+
+            currentPress = new Date().getTime();
+            cps = 1000/(currentPress - prevPress);
+            prevPress = currentPress;
+
+            document.getElementById("displayCPS").textContent="CPS: " + Math.round(cps);
+
+            if (Math.round(cps) > peak) {
+                
+                peak = Math.round(cps);
+                document.getElementById("peakCPS").textContent="Peak clicks per  second: " + peak;
+            }
+            
+        });
+        
+        setInterval(function(){
+            if (new Date().getTime() - currentPress > 50) {
+                document.getElementById("displayCPS").textContent="CPS: " + Math.round(1000/((new Date().getTime()) - prevPress));
+            }
+            
+        }, 1000);
+
+   
+    </script>
+    
+</body>
+</html>
